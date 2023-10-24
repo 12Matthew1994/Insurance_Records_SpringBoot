@@ -15,8 +15,8 @@ public class InsuredDTO {
         this.insuredId = insuredId;
     }
 
-    @NotNull(message = "Vyplňte jméno")
-    @NotBlank(message = "Vyplňte jméno")
+    @NotNull(message = "Vypište jméno")
+    @NotBlank(message = "Vypište jméno")
     private String name;
 
     @NotNull(message = "Vyplňte příjmení")
