@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="cs-cz" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:replace="~{fragments/layout.html :: head}"></head>
+
+<body>
+<header th:replace="~{fragments/layout.html :: header}"></header>
+
+<article>
+  <div id="centrovac">
+    <section>
+      <h1>Detail pojištěné osoby</h1>
+
+      <h2>Všechna pojištění</h2>
+      <div class="table-container">
+        <table>
+          <tr>
+            <th>ID pojištění</th>
+            <th>Typ pojištění</th>
+            <th>Roční pojistné</th>
+            <th>Platnost od</th>
+            <th>Platnost do</th>
+            <th class="akce">Akce</th>
+          </tr>
+          <tr th:each="insurance : ${allInsurances}">
+            <td th:text="${insurance.insuranceId}"></td>
+            <td th:text="${insurance.insuranceType}"></td>
+            <td th:text="${insurance.price}"></td>
+            <td th:text="${insurance.validTo}"></td>
+            <td th:text="${insurance.validFrom}"></td>
+            <td class="akce">
+              <p sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{'/insurance/edit/' + ${insurance.insuranceId}}">Editovat</a>|
+                <a th:href="@{'/insurance/delete/' + ${insurance.insuranceId}}">Odstranit</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </section>
+  </div>
+</article>
+
+<footer th:replace="~{fragments/layout.html :: footer}"></footer>
+</body>
+
+</html>

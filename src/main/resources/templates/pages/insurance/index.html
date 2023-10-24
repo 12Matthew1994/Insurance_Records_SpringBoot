@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments./layout.html :: head}"></head>
+<body>
+<header th:replace="~{fragments/layout.html :: header}"></header>
+
+<div class="py-2 flash-message message-success" th:text="${success}" th:if="${success}"></div>
+
+<div class="py-2 flash-message message-error" th:text="${error}" th:if="${error}"></div>
+
+<article>
+  <div id="centrovac">
+
+    <section>
+
+      <h1>Typ pojištění</h1>
+      <p sec:authorize="isAuthenticated()">
+        <a class="insurance-tlacitko" th:href="@{/insurance/create}">Vytvořit nový</a>
+      </p>
+      <p sec:authorize="isAnonymous()">
+        <a class="insurance-tlacitko" th:href="@{account/login}">Vytvořit nový</a>
+      </p>
+
+
+    </section>
+  </div>
+</article>
+<footer th:replace="~{fragments/layout.html :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="cs-cz" xmlns:th="">
+
+<head th:replace="~{fragments/layout.html :: head}"></head>
+
+<body>
+<header th:replace="~{fragments/layout.html :: header}"></header>
+
+<article>
+  <div id="centrovac">
+    <header>
+      <h1>Úprava pojištění</h1>
+    </header>
+
+    <section>
+      <form class="d-flex flex-column gap-2"
+            method="post"
+            th:action="@{'/insurance/edit/' + ${insuranceId}}"
+            th:object="${insuranceDTO}">
+        <div class="form-group">
+          <label for="insuranceType" class="control-label">Typ pojištění</label>
+          <input id="insuranceType" th:field="*{insuranceType}" class="form-control"/>
+          <small class="text-danger" th:if="${#fields.hasErrors('insuranceType')}" th:errors="*{insuranceType}"></small>
+        </div>
+        <div class="form-group">
+          <label for="price" class="control-label">Roční pojistné</label>
+          <textarea id="price" class="form-control" th:field="*{price}"></textarea>
+          <small class="text-danger" th:if="${#fields.hasErrors('price')}"
+                 th:errors="*{price}"></small>
+        </div>
+        <div class="form-group">
+          <label for="validFrom" class="control-label">Platnost od</label>
+          <textarea id="validFrom" class="form-control" th:field="*{validFrom}"></textarea>
+          <small class="text-danger" th:if="${#fields.hasErrors('validFrom')}" th:errors="*{validFrom}"></small>
+        </div>
+        <div class="form-group">
+          <label for="validTo" class="control-label">Platnost do</label>
+          <textarea id="validTo" class="form-control" th:field="*{validTo}"></textarea>
+          <small class="text-danger" th:if="${#fields.hasErrors('validTo')}" th:errors="*{validTo}"></small>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="insurance-tlacitko">Uložit</button>
+        </div>
+      </form>
+
+      <a class="insurance-tlacitko" th:href="@{/insured}">Zpět na seznam</a>
+    </section>
+  </div>
+</article>
+
+<footer th:replace="~{fragments/layout.html :: footer}"></footer>
+</body>
+
+</html>

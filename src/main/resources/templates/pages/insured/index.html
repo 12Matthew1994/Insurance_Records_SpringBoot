@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments./layout.html :: head}"></head>
+<body>
+<header th:replace="~{fragments/layout.html :: header}"></header>
+
+<div class="py-2 flash-message message-success" th:text="${success}" th:if="${success}"></div>
+
+<div class="py-2 flash-message message-error" th:text="${error}" th:if="${error}"></div>
+
+<article>
+    <div id="centrovac">
+
+
+        <section>
+            <h1>Pojištěnci</h1>
+            <p>
+                <a class="insurance-tlacitko" th:href="@{/insured/create}">Vytvořit nový</a>
+            </p>
+
+            <table>
+                <tr>
+                    <th>Id pojištěnce</th>
+                    <th>Jméno pojištěnce</th>
+                    <th>Příjmení pojištěnce</th>
+                    <th>Město</th>
+                    <th class="akce">Akce</th>
+                </tr>
+                <tr th:each="insured: ${insured}">
+                    <td th:href="@{'/insured/' + ${insured.insuredId}}" th:text="${insured.insuredId}"></td>
+                    <td th:text="${insured.name}"></td>
+                    <td th:text="${insured.surname}"></td>
+                    <td th:text="${insured.city}"></td>
+                    <td class="akce">
+                        <p sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{'/insured/edit/' + ${insured.insuredId}}">Editovat</a>|
+                            <a th:href="@{'/insured/detail/' + ${insured.insuredId}}">Detail</a>|
+                        <a th:href="@{'/insured/delete/' + ${insured.insuredId}}">Odstranit</a>
+                    </td>
+                </tr>
+
+            </table>
+        </section>
+    </div>
+</article>
+
+
+
+<footer th:replace="~{fragments/layout.html :: footer}"></footer>
+</body>
+</html>

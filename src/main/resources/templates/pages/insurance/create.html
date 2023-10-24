@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/layout.html :: head}"></head>
+<body>
+<header th:replace="~{fragments/layout.html :: header}"></header>
+
+<div class="py-2 flash-message message-success" th:text="${success}" th:if="${success}"></div>
+
+<div class="py-2 flash-message message-error" th:text="${error}" th:if="${error}"></div>
+
+<article>
+  <div id="centrovac">
+    <header>
+      <h1>Vytvořit typ pojištění</h1>
+    </header>
+    <section class="custom-table-container">
+      <form class="d-flex flex-column gap-2"
+            method="post"
+            th:action="@{/insurance/create}"
+            th:object="${insuranceDTO}">
+        <div class="form-group">
+          <label for="insuranceType" class="control-label">Typ pojištění</label>
+          <select id="insuranceType" th:field="*{insuranceType}" class="form-control">
+            <option value="Životní pojištění">Životní pojištění</option>
+            <option value="Pojištění nemovitosti">Pojištění nemovitosti</option>
+            <option value="Pojištění odpovědnosti">Pojištění odpovědnosti</option>
+            <option value="Povinné ručení">Povinné ručení</option>
+            <option value="Havarijní pojištění">Havarijní pojištění</option>
+          </select>
+          <small class="text-danger" th:if="${#fields.hasErrors('insuranceType')}" th:errors="*{insuranceType}"></small>
+        </div>
+        <div class="form-group">
+          <label for="price" class="control-label">Cena</label>
+          <input id="price" th:field="*{price}" class="form-control" th:value="${#numbers.formatDecimal(insuranceDTO.price, 2, 2)}"/>
+          <small class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></small>
+        </div>
+        <div class="form-group">
+          <label for="validTo" class="control-label">Platnost od</label>
+          <input type="date" id="validTo" th:field="*{validTo}" class="form-control" th:value="${#dates.format(insuranceDTO.validTo, 'yyyy-MM-dd')}"/>
+          <small class="text-danger" th:if="${#fields.hasErrors('validTo')}" th:errors="*{validTo}"></small>
+        </div>
+        <div class="form-group">
+          <label for="validFrom" class="control-label">Platnost do</label>
+          <input type="date" id="validFrom" th:field="*{validFrom}" class="form-control" th:value="${#dates.format(insuranceDTO.validFrom, 'yyyy-MM-dd')}"/>
+          <small class="text-danger" th:if="${#fields.hasErrors('validFrom')}" th:errors="*{validFrom}"></small>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="insurance-tlacitko">Vytvořit</button>
+        </div>
+      </form>
+
+      <a class="insurance-tlacitko" th:href="@{/insurance}">Zpět na seznam</a>
+    </section>
+  </div>
+</article>
+
+<footer th:replace="~{fragments/layout.html :: footer}"></footer>
+</body>
+</html>

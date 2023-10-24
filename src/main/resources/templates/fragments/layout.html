@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="head">
+  <meta charset="utf-8"/>
+  <meta name="description" content="Osobní webová aplikace"/>
+  <meta name="keywords" content="portfolio, programátor, Matthew"/>
+  <meta name="author" content="Matthew"/>
+
+  <title>Pojištění na míru</title>
+
+
+
+  <link rel="stylesheet" th:href="@{/styles/styles.css}" type="text/css"/>
+
+
+</head>
+<body>
+
+<header th:fragment="header">
+  <nav>
+    <ul>
+      <li><a th:href="@{/}">Hlavní strana</a></li>
+      <li><a th:href="@{insurance}">Sjednat pojištění</a></li>
+      <li> <li sec:authorize="hasRole('ADMIN')"> <a th:href="@{insured}">Pojištěnci</a></li>
+      <li sec:authorize="isAnonymous()"><a th:href="@{/account/login}">Přihlásit se</a></li>
+      <li sec:authorize="isAnonymous()"><a th:href="@{/account/register}">Registrovat</a></li>
+      <li>
+        <form method="post" th:action="@{/account/logout}">
+          <button class="btn text-white" sec:authorize="isAuthenticated()">Odhlásit se</button>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</header>
+<footer th:fragment="footer">
+  &copy;2023 - InsuranceRecords
+</footer>
+</body>
+</html>

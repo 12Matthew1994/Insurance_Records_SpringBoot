@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="cs-cz" xmlns:th="">
+
+<head th:replace="~{fragments/layout.html :: head}"></head>
+
+<body>
+<header th:replace="~{fragments/layout.html :: header}"></header>
+
+<article>
+    <div id="centrovac">
+        <header>
+            <h1>Úprava pojištěnce</h1>
+        </header>
+
+        <section>
+            <form class="d-flex flex-column gap-2"
+                  method="post"
+                  th:action="@{'/insured/edit/' + ${insuredId}}"
+                  th:object="${insuredDTO}">
+                <div class="form-group">
+                    <label for="name" class="control-label">Jméno</label>
+                    <input id="name" th:field="*{name}" class="form-control"/>
+                    <small class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+                </div>
+                <div class="form-group">
+                    <label for="surname" class="control-label">Příjmení</label>
+                    <textarea id="surname" class="form-control" th:field="*{surname}"></textarea>
+                    <small class="text-danger" th:if="${#fields.hasErrors('surname')}"
+                           th:errors="*{surname}"></small>
+                </div>
+                <div class="form-group">
+                    <label for="city" class="control-label">Město</label>
+                    <textarea id="city" class="form-control" th:field="*{city}"></textarea>
+                    <small class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></small>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="insurance-tlacitko">Uložit</button>
+                </div>
+            </form>
+
+            <a class="insurance-tlacitko" th:href="@{/insured}">Zpět na seznam</a>
+        </section>
+    </div>
+</article>
+
+<footer th:replace="~{fragments/layout.html :: footer}"></footer>
+</body>
+
+</html>
